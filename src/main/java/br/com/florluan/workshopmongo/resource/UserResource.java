@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.florluan.workshopmongo.domain.Post;
 import br.com.florluan.workshopmongo.domain.User;
 import br.com.florluan.workshopmongo.dto.UserDTO;
 import br.com.florluan.workshopmongo.service.UserService;
@@ -26,6 +27,8 @@ public class UserResource {
 
 	@Autowired
 	private UserService service;
+	
+	//crud de usuarios
 	
 	@GetMapping(produces = "application/json")
 	public ResponseEntity<List<UserDTO>> findAll(){
@@ -65,4 +68,11 @@ public class UserResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	//posts de um usuario
+	
+	@GetMapping(value = "/{id}/posts", produces = "application/json")
+	public ResponseEntity<List<Post>> findPosts(@PathVariable(value = "id") String id){
+		User user = service.findById(id);
+		return ResponseEntity.ok().body(user.getPosts());
+	}
 }
