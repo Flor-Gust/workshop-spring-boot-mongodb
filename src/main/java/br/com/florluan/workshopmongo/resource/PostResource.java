@@ -1,13 +1,17 @@
 package br.com.florluan.workshopmongo.resource;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.florluan.workshopmongo.domain.Post;
+import br.com.florluan.workshopmongo.resource.util.URL;
 import br.com.florluan.workshopmongo.service.PostService;
 
 @RestController
@@ -23,4 +27,10 @@ public class PostResource {
 		return ResponseEntity.ok().body(post);
 	}
 
+	@GetMapping(value = "/titlesearch", produces = "application/json")
+	public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "text", defaultValue="") String text){
+		text = URL.decodeParam(text);
+		List<Post> list = service.findByTitle(text);
+		return ResponseEntity.ok().body(list);
+	}
 }
