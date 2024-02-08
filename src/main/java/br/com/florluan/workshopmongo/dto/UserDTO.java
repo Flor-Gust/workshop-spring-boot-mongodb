@@ -2,9 +2,11 @@ package br.com.florluan.workshopmongo.dto;
 
 import java.io.Serializable;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import br.com.florluan.workshopmongo.domain.User;
 
-public class UserDTO implements Serializable{
+public class UserDTO extends RepresentationModel<UserDTO> implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
@@ -44,6 +46,5 @@ public class UserDTO implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
+
 }
