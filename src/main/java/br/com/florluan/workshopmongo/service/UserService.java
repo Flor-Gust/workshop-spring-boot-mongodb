@@ -30,6 +30,12 @@ public class UserService {
 		return repo.insert(user);
 	}
 	
+	public void delete(String id) {
+		var entity = repo.findById(id)
+				.orElseThrow(() -> new ObjectNotFoundException("Não foi encontrado objeto para esse ID!"));
+		repo.delete(entity);
+	}
+	
 	public User fromDTO(UserDTO obj) {
 		return new User(
 					obj.getId(),
